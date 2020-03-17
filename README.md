@@ -37,10 +37,11 @@ Then configure the rules you want to use under the rules section.
   },
 ```
 
-## Supported Rules
+## Tests
 
-* Fill in provided rules here
-
+```
+npm run test
+```
 
 
 

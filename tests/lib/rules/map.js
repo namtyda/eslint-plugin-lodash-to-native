@@ -27,6 +27,12 @@ ruleTester.run('lodash-to-native', rule, {
     {
       code: '[1, 2, 3].map(fn)'
     },
+    {
+      code: '_.map({a: 1, b: 2, c: 3}, fn)'
+    },
+    {
+      code: 'Array.isArray(arr) ? arr.map(fn) : _.map(arr, fn);'
+    }
   ],
 
   invalid: [
@@ -34,5 +40,13 @@ ruleTester.run('lodash-to-native', rule, {
       code: '_.map([1, 2, 3], fn)',
       errors: [errorObject],
     },
+    {
+      code: '_.map([{a: 1, b: 2, c: 3}], fn)',
+      errors: [errorObject]
+    },
+    {
+      code: "_.map([], fn)",
+      errors: [errorObject]
+    }
   ],
 });
