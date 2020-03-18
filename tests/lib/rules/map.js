@@ -32,7 +32,8 @@ ruleTester.run('lodash-to-native', rule, {
     },
     {
       code: 'Array.isArray(arr) ? arr.map(fn) : _.map(arr, fn);'
-    }
+    },
+    
   ],
 
   invalid: [
