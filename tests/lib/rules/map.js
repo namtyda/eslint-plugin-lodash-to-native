@@ -19,7 +19,7 @@ var rule = require("../../../lib/rules/map"),
 let ruleTester = new RuleTester();
 let errorObject = {
   message: 'This is construction _.map can be replaced by Array.map',
-  type: 'MemberExpression',
+  type: 'CallExpression',
 };
 ruleTester.run('lodash-to-native', rule, {
 
@@ -31,9 +31,11 @@ ruleTester.run('lodash-to-native', rule, {
       code: '_.map({a: 1, b: 2, c: 3}, fn)'
     },
     {
-      code: 'Array.isArray(arr) ? arr.map(fn) : _.map(arr, fn);'
+      code: 'Array.isArray([1, 2, 3]) ? [1, 2, 3].map(function() {}) : _.map([1, 2, 3], function() {})'
     },
-    
+    {
+      code: '_.map({}, function() {})'
+    }
   ],
 
   invalid: [
@@ -47,6 +49,13 @@ ruleTester.run('lodash-to-native', rule, {
     },
     {
       code: "_.map([], fn)",
+      errors: [errorObject]
+    },
+    {
+      code: `
+       arr = [];
+       _.map(arr, fn)
+      `,
       errors: [errorObject]
     }
   ],
